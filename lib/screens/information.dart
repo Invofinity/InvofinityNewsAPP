@@ -22,9 +22,12 @@ class _InfState extends State<Inf> {
       backgroundColor: bgColor,
       appBar: AppBar(
         backgroundColor: bgColor,
-        leading: Icon(
-          Feather.arrow_left_circle,
-          color: txtColor,
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context, '/home'),
+          child: Icon(
+            Feather.arrow_left_circle,
+            color: txtColor,
+          ),
         ),
         elevation: 0,
         title: Text(

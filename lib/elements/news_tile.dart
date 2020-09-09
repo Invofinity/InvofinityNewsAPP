@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 //This is the news tile to be displayed
 class Tile extends StatelessWidget {
   final String img;
