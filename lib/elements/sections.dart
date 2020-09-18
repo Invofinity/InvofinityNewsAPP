@@ -40,9 +40,8 @@ class _AllState extends State<All> {
               '/img': allarticles[index].img
             }),
             child: Tile(
-              img: allarticles[index].img,
-              head: allarticles[index].head,
-              des: allarticles[index].des,
+              //head: allarticles[index].head,
+              des: allarticles[index].url,
             ),
           );
         });
@@ -88,8 +87,8 @@ class _BusinessState extends State<Business> {
             }),
             child: Tile(
               img: allarticles1[index].img,
-              head: allarticles1[index].head,
-              des: allarticles1[index].des,
+              //head: allarticles1[index].head,
+              des: allarticles1[index].url,
             ),
           );
         });
@@ -136,7 +135,7 @@ class _SportsState extends State<Sports> {
             child: Tile(
               img: allarticles2[index].img,
               head: allarticles2[index].head,
-              des: allarticles2[index].des,
+              des: allarticles2[index].url,
             ),
           );
         });
@@ -183,7 +182,7 @@ class _PoliticsState extends State<Politics> {
             child: Tile(
               img: allarticles3[index].img,
               head: allarticles3[index].head,
-              des: allarticles3[index].des,
+              des: allarticles3[index].url,
             ),
           );
         });
@@ -230,7 +229,54 @@ class _EntertainmentState extends State<Entertainment> {
             child: Tile(
               img: allarticles4[index].img,
               head: allarticles4[index].head,
-              des: allarticles4[index].des,
+              des: allarticles4[index].url,
+            ),
+          );
+        });
+  }
+}
+
+class Science extends StatefulWidget {
+  @override
+  _ScienceState createState() => _ScienceState();
+}
+
+class _ScienceState extends State<Science> {
+  final bgColor = const Color(0xFFffffff);
+  final txtColor = const Color(0xFF171717);
+  final up = const Color(0xFFff416c);
+  final down = const Color(0xFFff4b2b);
+  var allarticles4 = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchNews();
+  }
+
+  Future<void> fetchNews() async {
+    Data5 newsClass4 = Data5();
+    await newsClass4.getData();
+    allarticles4 = newsClass4.articles4;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        itemCount: allarticles4.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () =>
+                Navigator.pushNamed(context, '/information', arguments: {
+              '/link': allarticles4[index].url,
+              '/content': allarticles4[index].content,
+              '/head': allarticles4[index].head,
+              '/img': allarticles4[index].img
+            }),
+            child: Tile(
+              img: allarticles4[index].img,
+              head: allarticles4[index].head,
+              des: allarticles4[index].url,
             ),
           );
         });

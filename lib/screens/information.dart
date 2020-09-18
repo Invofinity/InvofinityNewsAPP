@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:notification_app/elements/basic_elements.dart';
+import 'package:notification_app/elements/news_tile.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -115,7 +117,10 @@ class Page extends StatelessWidget {
                             height: 100,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(colors: [up, down]),
+                              gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [up, down]),
                             ),
                             child: Icon(
                               EvilIcons.external_link,
@@ -131,11 +136,53 @@ class Page extends StatelessWidget {
                     height: 20.0,
                   ),
                   Container(
+                      height: 220,
                       child: Text(
-                    content,
-                    style: TextStyle(
-                        color: txtColor, fontFamily: 'Poppins', fontSize: 15),
-                  )),
+                        content,
+                        style: TextStyle(
+                            color: txtColor,
+                            fontFamily: 'Poppins',
+                            fontSize: 15),
+                      )),
+                  Container(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 210,
+                        ),
+                        GestureDetector(
+                            child: Container(
+                          child: RadiantGradientMask(
+                            child: Icon(
+                              Icons.report,
+                              size: 21,
+                            ),
+                          ),
+                        )),
+                        SizedBox(
+                          width: 35,
+                        ),
+                        GestureDetector(
+                          child: Container(
+                            child: Save(),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 35,
+                        ),
+                        GestureDetector(
+                            child: Container(
+                          child: RadiantGradientMask(
+                            child: Icon(
+                              Icons.share,
+                              size: 21,
+                            ),
+                          ),
+                        )),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             )

@@ -11,9 +11,15 @@ class NewsArticles {
   String img;
   String url;
   String content;
-
+  String source;
   String time;
 
   NewsArticles(
-      {this.head, this.des, this.img, this.url, this.content, this.time});
+      {this.head,
+      this.des,
+      this.img,
+      this.url,
+      this.content,
+      this.time,
+      this.source});
 }

@@ -5,9 +5,10 @@ import 'package:notification_app/elements/basic_elements.dart';
 import 'package:notification_app/elements/sections.dart';
 import 'package:notification_app/elements/lists.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
-import 'package:notification_app/screens/saved.dart';
 import 'package:notification_app/screens/tips.dart';
 import 'package:notification_app/screens/settings.dart';
+import 'package:notification_app/elements/news_tile.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -24,6 +25,7 @@ class _HomeState extends State<Home> {
     final txtColor = const Color(0xFF171717);
     final up = const Color(0xFFff416c);
     final down = const Color(0xFFff4b2b);
+    final cardColor = const Color(0xFFf8f8f8);
 
     return Scaffold(
         backgroundColor: bgColor,
@@ -37,9 +39,8 @@ class _HomeState extends State<Home> {
           controller: pageController,
         ),
         bottomNavigationBar: BubbleBottomBar(
-          opacity: 0.2,
+          opacity: 0.12,
           backgroundColor: bgColor,
-          borderRadius: BorderRadius.circular(14),
           currentIndex: currentIndex,
           onTap: (index) {
             setState(() {
@@ -51,50 +52,78 @@ class _HomeState extends State<Home> {
           items: <BubbleBottomBarItem>[
             BubbleBottomBarItem(
                 backgroundColor: up,
-                icon: Icon(
-                  Entypo.news,
-                  color: txtColor,
+                icon: RadiantGradientMask(
+                  child: Icon(
+                    Entypo.news,
+                    size: 18.0,
+                  ),
                 ),
-                activeIcon: Icon(
-                  Entypo.news,
-                  color: up,
+                activeIcon: RadiantGradientMask(
+                  child: Icon(
+                    Entypo.news,
+                    size: 18.0,
+                  ),
                 ),
-                title: Text('News',
-                    style: TextStyle(
-                        fontFamily: 'PoppinsSemiBold', fontSize: 12))),
+                title: RadiantGradientMask(
+                  child: Text('News',
+                      style: TextStyle(
+                          fontFamily: 'PoppinsSemiBold', fontSize: 12)),
+                )),
             BubbleBottomBarItem(
                 backgroundColor: up,
-                icon: Icon(
+                icon: RadiantGradientMask(
+                  child: Icon(
+                    Entypo.tumblr,
+                    size: 18.0,
+                  ),
+                ),
+                activeIcon: RadiantGradientMask(
+                    child: Icon(
                   Entypo.tumblr,
-                  color: txtColor,
-                ),
-                activeIcon: Icon(Entypo.tumblr, color: up),
-                title: Text('Tips',
-                    style: TextStyle(
-                        fontFamily: 'PoppinsSemiBold', fontSize: 12))),
+                  size: 18.0,
+                )),
+                title: RadiantGradientMask(
+                  child: Text('Tips',
+                      style: TextStyle(
+                          fontFamily: 'PoppinsSemiBold', fontSize: 12)),
+                )),
             BubbleBottomBarItem(
                 backgroundColor: up,
-                icon: Icon(
-                  Entypo.bookmark,
-                  color: txtColor,
+                icon: RadiantGradientMask(
+                  child: Icon(
+                    FontAwesome.bookmark,
+                    size: 18.0,
+                  ),
                 ),
-                activeIcon: Icon(
-                  FontAwesome.bookmark,
-                  color: up,
+                activeIcon: RadiantGradientMask(
+                  child: Icon(
+                    FontAwesome.bookmark,
+                    size: 18.0,
+                  ),
                 ),
-                title: Text('Saved',
-                    style: TextStyle(
-                        fontFamily: 'PoppinsSemiBold', fontSize: 12))),
+                title: RadiantGradientMask(
+                  child: Text('Saved',
+                      style: TextStyle(
+                          fontFamily: 'PoppinsSemiBold', fontSize: 12)),
+                )),
             BubbleBottomBarItem(
                 backgroundColor: up,
-                icon: Icon(
+                icon: RadiantGradientMask(
+                  child: Icon(
+                    Entypo.cog,
+                    size: 18.0,
+                  ),
+                ),
+                activeIcon: RadiantGradientMask(
+                    child: Icon(
                   Entypo.cog,
-                  color: txtColor,
-                ),
-                activeIcon: Icon(Entypo.cog, color: up),
-                title: Text('Settings',
-                    style: TextStyle(
-                        fontFamily: 'PoppinsSemiBold', fontSize: 12))),
+                  size: 18.0,
+                )),
+                title: RadiantGradientMask(
+                  child: Text('Settings',
+                      style: TextStyle(
+                          fontFamily: 'PoppinsSemiBold', fontSize: 12)),
+                )),
           ],
         ));
   }
@@ -114,11 +143,13 @@ class _HomePageState extends State<HomePage>
   final txtColor = const Color(0xFF171717);
   final up = const Color(0xFFff416c);
   final down = const Color(0xFFff4b2b);
+  final FirebaseMessaging _msg = FirebaseMessaging();
 
   @override
   void initState() {
     super.initState();
-    tabcontroller = new TabController(vsync: this, length: 5);
+    tabcontroller = new TabController(vsync: this, length: 6);
+    _msg.getToken().then((value) => print(value));
   }
 
   @override
@@ -145,7 +176,6 @@ class _HomePageState extends State<HomePage>
             autoPlayAnimationDuration: Duration(seconds: 1),
             autoPlayCurve: Curves.fastOutSlowIn,
             enableInfiniteScroll: true,
-            enlargeCenterPage: true,
             onPageChanged: ((index) {
               setState(() {
                 current = index;
@@ -195,65 +225,33 @@ class _HomePageState extends State<HomePage>
           ),
           TabBar(
               labelColor: txtColor,
-              indicator: CircleTabIndicator(color: txtColor, radius: 2.0),
+              isScrollable: true,
+              labelStyle: TextStyle(
+                fontFamily: 'PoppinsSemiBold',
+                fontSize: 12,
+              ),
+              indicator: CircleTabIndicator(color: txtColor, radius: 2),
               indicatorWeight: 4,
               controller: tabcontroller,
               tabs: [
                 Tab(
-                  child: Container(
-                    child: Text(
-                      'All',
-                      style: TextStyle(
-                        fontFamily: 'PoppinsBold',
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
+                  text: 'All',
                 ),
                 Tab(
-                  child: Container(
-                    child: Text(
-                      'Business',
-                      style: TextStyle(
-                        fontFamily: 'PoppinsBold',
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
+                  text: 'Business',
                 ),
                 Tab(
-                  child: Container(
-                    child: Text(
-                      'Sports',
-                      style: TextStyle(
-                        fontFamily: 'PoppinsBold',
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
+                  text: 'Sports',
                 ),
                 Tab(
-                  child: Container(
-                    child: Text(
-                      'Politics',
-                      style: TextStyle(
-                        fontFamily: 'PoppinsBold',
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
+                  text: 'Politics',
                 ),
                 Tab(
-                  child: Container(
-                    child: Text(
-                      'Entertainment',
-                      style: TextStyle(
-                        fontFamily: 'PoppinsBold',
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
+                  text: 'Entertainment',
                 ),
+                Tab(
+                  text: 'Science',
+                )
               ]),
           Expanded(
               child: TabBarView(controller: tabcontroller, children: [
@@ -261,7 +259,8 @@ class _HomePageState extends State<HomePage>
             Business(),
             Sports(),
             Politics(),
-            Entertainment()
+            Entertainment(),
+            Science()
           ]))
         ],
       ),

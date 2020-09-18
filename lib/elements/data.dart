@@ -7,24 +7,21 @@ class Data {
 
   Future<void> getData() async {
     var response = await get(
-        'http://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=587161329d6446838080308015e2a0b2');
+        'https://fir-news-api-veokara.firebaseio.com/GlobalNews.json');
     var jsonData = jsonDecode(response.body);
-    if (jsonData['status'] == "ok") {
-      jsonData["articles"].forEach((element) {
-        if (element['urlToImage'] != null && element['description'] != null) {
-          NewsArticles newsarticles = NewsArticles(
-            head: element['title'],
-            des: element['description'],
-            img: element['urlToImage'],
-            url: element['url'],
-            content: element['content'],
-            //source: element['source'].name,
-            time: element['publishedAt'],
-          );
-          articles.add(newsarticles);
-        }
-      });
-    }
+
+    jsonData.forEach((element) {
+      NewsArticles newsarticles = NewsArticles(
+        head: element['title'],
+        //des: element['description'],
+        //img: element['urlToImage'],
+        url: element['domain'],
+        //content: element['content'],
+        //source: element['source[name]'],
+        //time: element['publishedAt'],
+      );
+      articles.add(newsarticles);
+    });
   }
 }
 
@@ -33,24 +30,24 @@ class Data1 {
 
   Future<void> getData() async {
     var response = await get(
-        'http://newsapi.org/v2/everything?q=bitcoin&from=2020-08-09&sortBy=publishedAt&apiKey=587161329d6446838080308015e2a0b2   ');
+        'https://fir-news-api-veokara.firebaseio.com/technology.json');
     var jsonData = jsonDecode(response.body);
-    if (jsonData['status'] == "ok") {
-      jsonData["articles"].forEach((element) {
-        if (element['urlToImage'] != null && element['description'] != null) {
-          NewsArticles newsarticles1 = NewsArticles(
-            head: element['title'],
-            des: element['description'],
-            img: element['urlToImage'],
-            url: element['url'],
-            content: element['content'],
+    //if (jsonData['status'] == "ok") {
+    jsonData.forEach((element) {
+      //if (element['urlToImage'] != null && element['description'] != null) {
+      NewsArticles newsarticles1 = NewsArticles(
+        head: element['title'],
+        /*des: element['description'],*/
+        img: element['thumbnail'],
+        url: element['domain'],
+        /*content: element['content'],
             //source: element['source'].name,
-            time: element['publishedAt'],
-          );
-          articles1.add(newsarticles1);
-        }
-      });
-    }
+            time: element['publishedAt'],*/
+      );
+      articles1.add(newsarticles1);
+      //}
+    });
+    //}
   }
 }
 
@@ -58,25 +55,25 @@ class Data2 {
   List<NewsArticles> articles2 = [];
 
   Future<void> getData() async {
-    var response = await get(
-        'http://newsapi.org/v2/everything?q=apple&from=2020-09-08&to=2020-09-08&sortBy=popularity&apiKey=587161329d6446838080308015e2a0b2');
+    var response =
+        await get('https://fir-news-api-veokara.firebaseio.com/sports.json');
     var jsonData = jsonDecode(response.body);
-    if (jsonData['status'] == "ok") {
-      jsonData["articles"].forEach((element) {
-        if (element['urlToImage'] != null && element['description'] != null) {
-          NewsArticles newsarticles2 = NewsArticles(
-            head: element['title'],
-            des: element['description'],
-            img: element['urlToImage'],
-            url: element['url'],
-            content: element['content'],
-            //source: element['source'].name,
-            time: element['publishedAt'],
-          );
-          articles2.add(newsarticles2);
-        }
-      });
-    }
+    //if (jsonData['status'] == "ok") {
+    jsonData.forEach((element) {
+      //if (element['urlToImage'] != null && element['description'] != null) {
+      NewsArticles newsarticles2 = NewsArticles(
+        head: element['title'],
+        /*des: element['description'],*/
+        img: element['thumbnail'],
+        url: element['domain'],
+        //content: element['content'],
+        //source: element['source'].name,
+        //time: element['publishedAt'],
+      );
+      articles2.add(newsarticles2);
+      //}
+    });
+    //}
   }
 }
 
@@ -84,25 +81,25 @@ class Data3 {
   List<NewsArticles> articles3 = [];
 
   Future<void> getData() async {
-    var response = await get(
-        'http://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=587161329d6446838080308015e2a0b2');
+    var response =
+        await get('https://fir-news-api-veokara.firebaseio.com/health.json');
     var jsonData = jsonDecode(response.body);
-    if (jsonData['status'] == "ok") {
-      jsonData["articles"].forEach((element) {
-        if (element['urlToImage'] != null && element['description'] != null) {
-          NewsArticles newsarticles3 = NewsArticles(
-            head: element['title'],
-            des: element['description'],
-            img: element['urlToImage'],
-            url: element['url'],
-            content: element['content'],
-            //source: element['source'].name,
-            time: element['publishedAt'],
-          );
-          articles3.add(newsarticles3);
-        }
-      });
-    }
+    //if (jsonData['status'] == "ok") {
+    jsonData.forEach((element) {
+      //if (element['urlToImage'] != null && element['description'] != null) {
+      NewsArticles newsarticles3 = NewsArticles(
+        head: element['title_health'],
+        // des: element['description'],
+        img: element['thumbnail_health'],
+        url: element['domain_health'],
+        // content: element['content'],
+        //source: element['source'].name,
+        // time: element['publishedAt'],
+      );
+      articles3.add(newsarticles3);
+      // }
+    });
+    //}
   }
 }
 
@@ -111,23 +108,49 @@ class Data4 {
 
   Future<void> getData() async {
     var response = await get(
-        'http://newsapi.org/v2/everything?domains=wsj.com&apiKey=587161329d6446838080308015e2a0b2');
+        'https://fir-news-api-veokara.firebaseio.com/Entertainment.json');
     var jsonData = jsonDecode(response.body);
-    if (jsonData['status'] == "ok") {
-      jsonData["articles"].forEach((element) {
-        if (element['urlToImage'] != null && element['description'] != null) {
-          NewsArticles newsarticles4 = NewsArticles(
-            head: element['title'],
-            des: element['description'],
-            img: element['urlToImage'],
-            url: element['url'],
-            content: element['content'],
-            //source: element['source'].name,
-            time: element['publishedAt'],
-          );
-          articles4.add(newsarticles4);
-        }
-      });
-    }
+    //if (jsonData['status'] == "ok") {
+    jsonData.forEach((element) {
+      //if (element['urlToImage'] != null && element['description'] != null) {
+      NewsArticles newsarticles4 = NewsArticles(
+        head: element['title'],
+        //des: element['description'],
+        img: element['thumbnail'],
+        url: element['domain'],
+        //content: element['content'],
+        //source: element['source'].name,
+        //time: element['publishedAt'],
+      );
+      articles4.add(newsarticles4);
+      // }
+    });
+    //}
+  }
+}
+
+class Data5 {
+  List<NewsArticles> articles4 = [];
+
+  Future<void> getData() async {
+    var response =
+        await get('https://fir-news-api-veokara.firebaseio.com/science.json');
+    var jsonData = jsonDecode(response.body);
+    //if (jsonData['status'] == "ok") {
+    jsonData.forEach((element) {
+      //if (element['urlToImage'] != null && element['description'] != null) {
+      NewsArticles newsarticles4 = NewsArticles(
+        head: element['title'],
+        //des: element['description'],
+        img: element['thumbnail'],
+        url: element['domain'],
+        //content: element['content'],
+        //source: element['source'].name,
+        //time: element['publishedAt'],
+      );
+      articles4.add(newsarticles4);
+      // }
+    });
+    //}
   }
 }
